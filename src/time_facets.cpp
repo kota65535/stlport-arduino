@@ -18,6 +18,8 @@
 
 #include "stlport_prefix.h"
 
+#ifndef _STLP_NO_LOCALE_SUPPORT
+
 #include <cstdio>
 #include <locale>
 #include <istream>
@@ -387,7 +389,6 @@ void _STLP_CALL __write_formatted_timeT(_STLP_BASIC_IOSTRING(_Ch) &buf,
 
     case 't': /* POSIX.2 extension.  */
       buf.append(1, ct.widen('\t'));
-      break;
 
     case 'u': /* POSIX.2 extension.  */
       _bend = __write_integer(_buf, 0, long((t->tm_wday - 1 + 7)) % 7 + 1);
@@ -577,3 +578,5 @@ template class time_put<wchar_t, ostreambuf_iterator<wchar_t, char_traits<wchar_
 #endif
 
 _STLP_END_NAMESPACE
+
+#endif // _STLP_NO_LOCALE_SUPPORT

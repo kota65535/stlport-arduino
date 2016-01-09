@@ -16,10 +16,14 @@
 #ifndef _STLP_INTERNAL_CWCHAR
 #define _STLP_INTERNAL_CWCHAR
 
-#if defined (_STLP_WCE_EVC3)
+#if defined (_STLP_NO_NATIVE_MBSTATE_T)
 #  ifndef _STLP_INTERNAL_MBSTATE_T
 #    include <stl/_mbstate_t.h>
 #  endif
+
+#elif defined (_STLP_AVR)
+#  include <stl/_cstddef.h>
+
 #else
 #  if defined (__GNUC__)
 #    if defined (_STLP_HAS_INCLUDE_NEXT)
@@ -341,6 +345,6 @@ _STLP_END_NAMESPACE
 #  undef _STLP_WCHAR_SUNPRO_EXCLUDE
 #  undef _STLP_WCHAR_MSL_EXCLUDE
 
-#  endif /* !defined(_STLP_WCE_EVC3) */
+#  endif /* !defined(_STLP_NO_NATIVE_MBSTATE_T) */
 
 #endif /* _STLP_INTERNAL_CWCHAR */

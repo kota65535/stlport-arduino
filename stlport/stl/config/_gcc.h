@@ -122,7 +122,9 @@ typedef unsigned int wint_t;
 #endif /* __APPLE__ */
 
 /* g++ 2.7.x and above */
-#define _STLP_LONG_LONG long long
+#ifndef __AVR__
+#  define _STLP_LONG_LONG long long
+#endif
 
 #ifdef _STLP_USE_UCLIBC
   /* No *f math fuctions variants (i.e. sqrtf, fabsf, etc.) */
@@ -151,7 +153,7 @@ typedef unsigned int wint_t;
 #  define _STLP_NO_VENDOR_MATH_F
 #endif
 
-#ifdef __ANDROID__
+#if defined(__ANDROID__) || defined(__AVR__)
 #  define _STLP_HAS_NO_NEW_C_HEADERS 1
 #endif
 
@@ -182,7 +184,7 @@ typedef unsigned int wint_t;
 #  define _STLP_DEF_CONST_PLCT_NEW_BUG 1
 #endif
 
-#ifndef __ANDROID__
+#if !defined(__ANDROID__) && !defined(__AVR__)
 #  undef _STLP_NO_UNCAUGHT_EXCEPT_SUPPORT
 #  undef _STLP_NO_UNEXPECTED_EXCEPT_SUPPORT
 #endif

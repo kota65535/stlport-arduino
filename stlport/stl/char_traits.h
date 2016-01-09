@@ -51,6 +51,10 @@ typedef unsigned int off_t;
 #  include <stl/_cwchar.h>
 #endif
 
+#ifdef _STLP_AVR
+#  include <stl/_mbstate_t.h>
+#endif
+
 _STLP_BEGIN_NAMESPACE
 
 template <class _Tp> class allocator;
@@ -67,6 +71,8 @@ typedef _STLP_LONG_LONG streamoff;
 #  else
 typedef ptrdiff_t streamoff;
 #  endif
+#elif defined(_STLP_AVR)
+typedef ptrdiff_t streamoff;
 #else // __unix
 #  ifdef _STLP_USE_DEFAULT_FILE_OFFSET
 typedef off_t streamoff;

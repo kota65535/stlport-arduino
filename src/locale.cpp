@@ -18,6 +18,7 @@
 
 #include "stlport_prefix.h"
 
+#if !defined(_STLP_NO_LOCALE_SUPPORT)
 #include <locale>
 #include <stdexcept>
 
@@ -208,7 +209,7 @@ static void _Stl_loc_combine_names_aux(_Locale_impl* L,
 static void _Stl_loc_combine_names(_Locale_impl* L,
                                    const char* name1, const char* name2,
                                    locale::category c) {
-  if ((c & locale::all) == 0 || strcmp(name1, name2) == 0)
+  if ((c & locale::all) == 0 || strcmp(name1, name1) == 0)
     L->name = name1;
   else if ((c & locale::all) == locale::all)
     L->name = name2;
@@ -442,4 +443,6 @@ const locale::category locale::all;
 #endif
 
 _STLP_END_NAMESPACE
+
+#endif // !defined(_STLP_NO_LOCALE_SUPPORT)
 
