@@ -55,32 +55,23 @@ inline void* operator new[](size_t, void *p) { return p; }
 #endif
 
 #if defined(_STLP_AVR)
-
 #  if !defined(ARDUINO) || (ARDUINO < 101)
-// No operator new by default with old or no Arduino core lib
-// so these minimal definitions are "better than nothing"
-void * operator new(size_t size) _STLP_WEAK;
-void operator delete(void * ptr) _STLP_WEAK;
-
-inline void * operator new(size_t s) { return malloc(size); }
-inline void operator delete(void * p) { if (p) {free p;} }
+// We must define new/delete operators if arduino core library is not present
+inline void * operator new(size_t size) { return malloc(size); }
+inline void * operator new[](size_t size) { return malloc(size); }
+inline void operator delete(void * ptr) { free(ptr); }
+inline void operator delete[](void * ptr) { free(ptr); }
 #  endif
 
-void* operator new(size_t, void* p) _STLP_WEAK;
-void* operator new[](size_t, void *p) _STLP_WEAK;
-
-void operator delete(void*, void*) _STLP_NOTHROW _STLP_WEAK;
-void operator delete[](void*, void*) _STLP_NOTHROW _STLP_WEAK;
-
-inline void* operator new(size_t, void* p) { return p; }
-inline void* operator new[](size_t, void *p) { return p; }
-
-inline void operator delete(void*, void*) _STLP_NOTHROW  {}
-inline void operator delete[](void*, void*) _STLP_NOTHROW {}
-
-_STLP_BEGIN_NAMESPACE
-struct nothrow_t;
-_STLP_END_NAMESPACE
+// Placement-new operators
+inline void* operator new(std::size_t, void* __p) { return __p; }
+inline void* operator new[](std::size_t, void* __p) { return __p; }
+// Placement-delete operators
+inline void operator delete  (void*, void*) { }
+inline void operator delete[](void*, void*) { }
+// _STLP_BEGIN_NAMESPACE
+// struct nothrow_t;
+// _STLP_END_NAMESPACE
 #endif
 
 #if defined (_STLP_NO_BAD_ALLOC) && !defined (_STLP_NEW_DONT_THROW_BAD_ALLOC)

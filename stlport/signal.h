@@ -21,12 +21,16 @@
 #endif
 
 /* evc3 and evc4 don't have signal.h */
-#ifndef _STLP_WCE
+#if !defined(_STLP_WCE) && !defined(_STLP_AVR)
 #  if defined (_STLP_HAS_INCLUDE_NEXT)
 #    include_next <signal.h>
 #  else
 #    include _STLP_NATIVE_C_HEADER(signal.h)
 #  endif
+#endif
+
+#ifdef _STLP_AVR
+#  include <avr/signal.h>
 #endif
 
 #if (_STLP_OUTERMOST_HEADER_ID == 0x257)

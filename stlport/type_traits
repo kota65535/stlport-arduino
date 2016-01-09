@@ -30,7 +30,7 @@
 #endif
 
 #ifdef _STLP_AVR
-#  include <cstring>
+#  include <stl/_cstring.h>
 #endif
 
 // libstdc++ v3, timestamp 20050519 (3.4.4) has __type_traits,
