@@ -35,6 +35,19 @@ CC := ${TARGET_OS}-${CC}
 AS := ${TARGET_OS}-${AS}
 endif
 
+ifeq ($(TARGET_OS),avr)
+  ifdef ARDUINO_CORE_LIB
+    CFLAGS += -I$(ARDUINO_CORE_LIB)
+    CCFLAGS += -I$(ARDUINO_CORE_LIB)
+    CXXFLAGS += -I$(ARDUINO_CORE_LIB)
+  endif
+  ifdef MCU
+    CFLAGS += -mmcu=$(MCU)
+    CCFLAGS += -mmcu=$(MCU)
+    CXXFLAGS += -mmcu=$(MCU)
+  endif
+endif
+
 CXX_VERSION := $(shell ${CXX} -dumpversion)
 CXX_VERSION_MAJOR := $(shell echo ${CXX_VERSION} | awk 'BEGIN { FS = "."; } { print $$1; }')
 CXX_VERSION_MINOR := $(shell echo ${CXX_VERSION} | awk 'BEGIN { FS = "."; } { print $$2; }')
@@ -74,7 +87,7 @@ endif
 
 OUTPUT_OPTION = -o $@
 LINK_OUTPUT_OPTION = ${OUTPUT_OPTION}
-CPPFLAGS = $(DEFS) $(INCLUDES)
+CPPFLAGS += $(DEFS) $(INCLUDES)
 
 ifdef WITHOUT_RTTI
 # -fno-rtti shouldn't be pass to the C compiler, we cannot use OPT so we add it
@@ -84,6 +97,10 @@ ifdef STLP_BUILD
 # gcc do not define any macro to signal that there is no rtti support:
 DEFS += -D_STLP_NO_RTTI
 endif
+endif
+
+ifdef WITHOUT_EXCEPTIONS
+CXX += -fno-exceptions
 endif
 
 ifeq ($(OSNAME), cygming)

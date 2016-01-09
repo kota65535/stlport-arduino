@@ -110,6 +110,11 @@ Available options:
                         win95   Windows 95
                         win98   Windows 98
                         winxp   Windows XP and later (default)
+  --mcu=<name>
+                        The Atmel AVR instruction set architectures (ISA) or MCU type.
+  --arduino-dir=<name>
+                        Arduino installed directory.
+                        This option is utilized for including arduino core library header, especially <new.h>.
 
 Environment variables:
 
@@ -292,6 +297,12 @@ do
           exit -1
           ;;
       esac
+      ;;
+    --mcu=*)
+      write_option $option MCU
+      ;;
+    --arduino-dir=*)
+      write_option $option ARDUINO_DIR
       ;;
     *)
       echo "Unknown configuration option '$option'"
