@@ -14,15 +14,15 @@ In the future, I will add instructions for ino and platformIO if available.
 
 ## How to build and install (Arduino-Makefile)
 
-1. Clone the repository:
+1\. Clone the repository.
 
 ```
 $ git clone https://github.com/kota65535/stlport-arduino ~/
 ```
 
-2. Copy the file `STLport.mk` to the same directory where your Makefile is.
+2\. Copy the file `STLport.mk` to the same directory where your Makefile is.
 
-3. In your Makefile, you need to set variable `STLPORT_DIR`, the directory of the cloned repository.
+3\. In your Makefile, you need to set variable `STLPORT_DIR`, the directory of the cloned repository.
 And include `STLport.mk` at the end of the Makefile. For example, your Makefile may be as follows:
 
 ```
@@ -45,7 +45,7 @@ STLPORT_DIR := $(HOME)/stlport-arduino
 include STLport.mk
 ```
 
-4. To build stlport static library file, run the following command:
+4\. To build stlport static library file, run the following command:
 
 ```
 $ make stlport
@@ -53,7 +53,7 @@ $ make stlport
 
 This will also install static library `libstlport.a` to the current directory.
 
-5. To install headers as user library of Arduino, run the following command:
+5\. To install headers as user library of Arduino, run the following command:
 
 ```
 $ make stlport-install-header
@@ -62,7 +62,7 @@ $ make stlport-install-header
 ## How to use
 
 To link `libstlport.a` with your sketch, you can use `$LINKER_SCRIPT` variable.
-Add current directory to the library search path and link it.
+Adding the line `LINKER_SCRIPTS := -L. -lstlport` enables you to link `libstlport.a` in the current directory.
 
 ```
 # board information
@@ -77,7 +77,7 @@ MONITOR_PORT  := /dev/ttyACM0
 
 USER_LIB_PATH := /opt/libs
 ARDUINO_LIBS  := stlport
-LINKER_SCRIPTS = -L. -lstlport
+LINKER_SCRIPTS := -L. -lstlport
 
 include $(ARDMK_DIR)/Arduino.mk
 
