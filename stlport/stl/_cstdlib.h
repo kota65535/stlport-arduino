@@ -69,9 +69,11 @@ using _STLP_VENDOR_CSTD::ldiv_t;
 using _STLP_VENDOR_CSTD::size_t;
 
 #  ifndef _STLP_NO_CSTD_FUNCTION_IMPORTS
-#    if !defined(_STLP_WCE) && !defined(_STLP_AVR)
+#    if !defined(_STLP_WCE)
 // these functions just don't exist on Windows CE or AVR
 using _STLP_VENDOR_CSTD::abort;
+#    endif
+#    if !defined(_STLP_WCE) && !defined(_STLP_AVR)
 using _STLP_VENDOR_CSTD::system;
 using _STLP_VENDOR_CSTD::bsearch;
 #    endif
