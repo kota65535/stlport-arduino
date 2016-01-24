@@ -107,6 +107,20 @@ public:
 
 _STLP_END_NAMESPACE
 
+#else
+#  ifndef _STLP_INTERNAL_EXCEPTION
+#    include <stl/_exception.h>
+#  endif
+_STLP_BEGIN_NAMESPACE
+class bad_alloc : public exception {
+public:
+  bad_alloc () _STLP_NOTHROW_INHERENTLY { }
+  bad_alloc(const bad_alloc&) _STLP_NOTHROW_INHERENTLY { }
+  bad_alloc& operator=(const bad_alloc&) _STLP_NOTHROW_INHERENTLY {return *this;}
+  ~bad_alloc () _STLP_NOTHROW_INHERENTLY { }
+  const char* what() const _STLP_NOTHROW_INHERENTLY { return "bad alloc"; }
+};
+_STLP_END_NAMESPACE
 #endif /* _STLP_USE_EXCEPTIONS && (_STLP_NO_BAD_ALLOC || _STLP_NEW_DONT_THROW_BAD_ALLOC) */
 
 #if defined (_STLP_USE_OWN_NAMESPACE)
