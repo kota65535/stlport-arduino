@@ -41,6 +41,17 @@
 #  define _STLP_NATIVE_SETJMP_H_INCLUDED
 #endif
 
+#if defined(_STLP_AVR)
+#  ifdef abs
+#    undef abs
+#  endif
+inline int abs(int __x) { return __builtin_abs(__x); }
+#  ifdef labs
+#    undef labs
+#  endif
+inline long labs(int __x) { return __builtin_labs(__x); }
+#endif
+
 #if defined (__MSL__) && (__MSL__ <= 0x5003)
 namespace std {
   typedef ::div_t div_t;
