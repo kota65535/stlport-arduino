@@ -660,6 +660,12 @@ const size_t basic_string<_CharT, _Traits, _Alloc>::npos;
 
 _STLP_END_NAMESPACE
 
+size_t strxfrm(char * strDest, char const * strSource, size_t count)
+{
+    strncpy(strDest, strSource, count);
+    return strlen(strDest);
+}
+
 #undef __size_type__
 #if defined (_STLP_NESTED_TYPE_PARAM_BUG)
 #  undef size_type

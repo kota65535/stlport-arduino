@@ -58,6 +58,10 @@ struct _exception;
 #    include <wince/string.h>
 #  endif
 
+#  if defined(_STLP_AVR)
+size_t strxfrm(char * strDest, char const * strSource, size_t count);
+#  endif
+
 #  if (_STLP_OUTERMOST_HEADER_ID == 0x269)
 #    if !defined (_STLP_DONT_POP_HEADER_ID)
 #      include <stl/_epilog.h>
